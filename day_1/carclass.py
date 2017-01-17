@@ -12,14 +12,14 @@ class Car(object):
     else:
       self.num_of_doors = 4
 
-    if self.vehicle_type == 'trailer':
+    if self.vehicle_type == 'sport':
       self.num_of_wheels = 8
     else:
       self.num_of_wheels = 4
 
 
   def is_saloon(self):
-    if self.vehicle_type is not 'trailer':
+    if self.vehicle_type is not 'sport':
         self.vehicle_type == 'saloon'
         return True
     return False
