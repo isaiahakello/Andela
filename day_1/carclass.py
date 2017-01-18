@@ -1,7 +1,7 @@
 class Car(object):
   speed = 0
 
-  def __init__(self, name='Cadillac', model='cadillac', vehicle_type=None):
+  def __init__(self, name='Suv', model='cadillac', vehicle_type=suv):
     self.name = name
     self.model = model
     self.vehicle_type = vehicle_type
@@ -20,7 +20,7 @@ class Car(object):
 
   def is_saloon(self):
     if self.vehicle_type is not 'sport':
-        self.vehicle_type == 'saloon'
+        self.vehicle_type == 'ferrari'
         return True
     return False
 
