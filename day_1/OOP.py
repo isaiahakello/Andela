@@ -1,29 +1,49 @@
-class Account(object):
-    def __init__(self, holder, number, balance,credit_line=1500): 
-        self.Holder = holder 
-        self.Number = number 
-        self.Balance = balance
-        self.CreditLine = credit_line
 
-    def deposit(self, amount): 
-        self.Balance = amount
+class BoundsCheckingSpeed(object):
+    def __init__(self, maxspeed):
+        self.maxspeed = maxspeed
 
-    def withdraw(self, amount): 
-        if(self.Balance - amount < -self.CreditLine):
-            # coverage insufficient
-            return False  
-        else: 
-            self.Balance -= amount 
-            return True
+    def __get__(self, instance, cls):
+        return instance._speed
 
-    def balance(self): 
-        return self.Balance
+    def __set__(self, instance, value):
+        s = int(value)
+        s = max(0, s)
+        instance._speed = min(self.maxspeed, s)
 
-    def transfer(self, target, amount):
-	if(self.Balance - amount < -self.CreditLine):
-            # coverage insufficient
-            return False  
-        else: 
-            self.Balance -= amount 
-            target.Balance += amount 
-            return True
+
+class car(object):
+    speed = BoundsCheckingSpeed(0)
+
+    def __init__(self, name):
+        self.name = name
+
+    @property
+    def speed_description(self):
+        return '{name} the {type} is going {speed} kph!'.format(name=self.name,
+                                                                type=self.__class__.__name__.lower(), speed=self.speed)
+
+
+class Car(car):
+    speed = BoundsCheckingSpeed(120)
+
+
+class Porsche(car):
+    speed = BoundsCheckingSpeed(120)
+
+
+class Bus(car):
+    speed = BoundsCheckingSpeed(80)
+
+
+SaloonCar = Car('Mark X')
+SaloonCar.speed = 120
+print(SaloonCar.speed_description)
+
+PorscheCarrera = Porsche('Porsche Carrera')
+PorscheCarrera.speed = 110
+print(PorscheCarrera.speed_description)
+
+Bus = Bus('Andela')
+Bus.speed = 100
+print(Bus.speed_description)
